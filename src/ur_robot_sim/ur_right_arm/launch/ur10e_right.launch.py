@@ -32,7 +32,6 @@ def generate_launch_description():
     start_joint_controller = "true"
     
     controllers_config_right = "/home/autolug_ws/src/ur_robot_sim/ur_right_arm/config/ur10e_right_controllers.yaml"
-    # controllers_config_left = ""
     
 
     # Robot Description Generation
@@ -72,17 +71,6 @@ def generate_launch_description():
     # robot_description_left = {"robot_description": robot_description_content_left}
     robot_description_right = {"robot_description": robot_description_content_right}
     
-    
-    # robot_state_publisher_node_ur10e_left = Node(
-    #     package="robot_state_publisher",
-    #     executable="robot_state_publisher",
-    #     name='robot_state_publisher',
-    #     # name='robot_state_publisher_ur10e_left',
-    #     namespace='ur10e_left',
-    #     output="both",
-    #     parameters=[robot_description_left],
-    # )
-    
     robot_state_publisher_node_ur10e_right = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -93,52 +81,13 @@ def generate_launch_description():
         parameters=[robot_description_right],
     )
     
-    # Nodes
-    # joint_state_publisher_node_ur10e_left = Node(
-    #     package="joint_state_publisher",
-    #     executable="joint_state_publisher",
-    #     name='joint_state_publisher',
-    #     # name='joint_state_publisher_ur10e_left',
-    #     namespace='ur10e_left'
-    # )
-    
-    # joint_state_publisher_node_ur10e_right = Node(
-    #     package="joint_state_publisher",
-    #     executable="joint_state_publisher",
-    #     name='joint_state_publisher',
-    #     # name='joint_state_publisher_ur10e_right',
-    #     namespace='ur10e_right'
-    # )
-    
-    # joint_state_broadcaster_spawner_left = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     namespace='ur10e_left',
-    #     arguments=["joint_state_broadcaster", "--controller-manager", "/ur10e_left/controller_manager"],
-    # )
-    
     joint_state_broadcaster_spawner_right = Node(
         package="controller_manager",
         executable="spawner",
         namespace='ur10e_right',
         arguments=["joint_state_broadcaster", "--controller-manager", "/ur10e_right/controller_manager"],
     )
-
-    # Spawn robot with a unique name to avoid "already exists" error
-    # spawn_robot_left = Node(
-    #     package="gazebo_ros",
-    #     executable="spawn_entity.py",
-    #     arguments=[
-    #         "-entity", "ur10e_left",  # Changed entity name
-    #         "-topic", "/ur10e_left/robot_description",  # Use robot_description topic instead of file
-    #         "-x", "-0.5",
-    #         "-y", "0.25",
-    #         "-z", "0.741",
-    #         "-Y", "0.0",
-    #     ],
-    #     output="screen",
-    # )
-    
+   
     spawn_robot_right = Node(
         package="gazebo_ros",
         executable="spawn_entity.py",
@@ -157,13 +106,7 @@ def generate_launch_description():
 
     # ***** RETURN LAUNCH DESCRIPTION ***** #
     return LaunchDescription([
-        # gazebo,
-        # robot_state_publisher_node_ur10e_left,
         robot_state_publisher_node_ur10e_right,
-        # joint_state_publisher_node_ur10e_left,
-        # joint_state_publisher_node_ur10e_right,
-        # joint_state_broadcaster_spawner_left,
         joint_state_broadcaster_spawner_right,
-        # spawn_robot_left,
         spawn_robot_right,        
     ])

@@ -83,46 +83,12 @@ def generate_launch_description():
         parameters=[robot_description_left],
     )
     
-    # robot_state_publisher_node_ur10e_right = Node(
-    #     package="robot_state_publisher",
-    #     executable="robot_state_publisher",
-    #     name='robot_state_publisher',
-    #     # name='robot_state_publisher_ur10e_right',
-    #     namespace='ur10e_right',
-    #     output="both",
-    #     parameters=[robot_description_right],
-    # )
-    
-    # Nodes
-    # joint_state_publisher_node_ur10e_left = Node(
-    #     package="joint_state_publisher",
-    #     executable="joint_state_publisher",
-    #     name='joint_state_publisher',
-    #     # name='joint_state_publisher_ur10e_left',
-    #     namespace='ur10e_left'
-    # )
-    
-    # joint_state_publisher_node_ur10e_right = Node(
-    #     package="joint_state_publisher",
-    #     executable="joint_state_publisher",
-    #     name='joint_state_publisher',
-    #     # name='joint_state_publisher_ur10e_right',
-    #     namespace='ur10e_right'
-    # )
-    
     joint_state_broadcaster_spawner_left = Node(
         package="controller_manager",
         executable="spawner",
         namespace='ur10e_left',
         arguments=["joint_state_broadcaster", "--controller-manager", "/ur10e_left/controller_manager"],
     )
-    
-    # joint_state_broadcaster_spawner_right = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     namespace='ur10e_right',
-    #     arguments=["joint_state_broadcaster", "--controller-manager", "/ur10e_right/controller_manager"],
-    # )
 
     # Spawn robot with a unique name to avoid "already exists" error
     spawn_robot_left = Node(
@@ -139,31 +105,10 @@ def generate_launch_description():
         ],
         output="screen",
     )
-    
-    # spawn_robot_right = Node(
-    #     package="gazebo_ros",
-    #     executable="spawn_entity.py",
-    #     arguments=[
-    #         "-entity", "ur10e_right",  # Changed entity name
-    #         "-topic", "/ur10e_right/robot_description",  # Use robot_description topic instead of file
-    #         # "-topic", "/robot_description",  # Use robot_description topic instead of file
-    #         "-x", "0.5",
-    #         "-y", "0.25",
-    #         "-z", "0.741",
-    #         "-Y", "0.0",
-    #     ],
-    #     output="screen",
-    # )
-
 
     # ***** RETURN LAUNCH DESCRIPTION ***** #
     return LaunchDescription([
         robot_state_publisher_node_ur10e_left,
-        # robot_state_publisher_node_ur10e_right,
-        # joint_state_publisher_node_ur10e_left,
-        # joint_state_publisher_node_ur10e_right,
         joint_state_broadcaster_spawner_left,
-        # joint_state_broadcaster_spawner_right,
-        spawn_robot_left,
-        # spawn_robot_right,        
+        spawn_robot_left,    
     ])
