@@ -105,9 +105,10 @@
     </gazebo>
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control_$(arg namespace)">
-        <ros>
-          <namespace>$(arg namespace)</namespace>
-        </ros>
+        <robotNamespace>$(arg namespace)</robotNamespace>
+        <namespace>$(arg namespace)</namespace>
+        <!-- <ros>
+        </ros> -->
         <parameters>$(arg simulation_controllers)</parameters>
       </plugin>
     </gazebo>
