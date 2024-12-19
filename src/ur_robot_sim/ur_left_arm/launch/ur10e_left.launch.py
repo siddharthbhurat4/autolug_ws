@@ -101,7 +101,6 @@ def generate_launch_description():
             "-y", "0.25",
             "-z", "0.741",
             "-Y", "0.0",
-            "--ros-args", "--remap", "__ns:=/ur10e_left",
         ],
         output="screen",
     )
